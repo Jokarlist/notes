@@ -177,7 +177,7 @@
 
 - 在使用file-loader或url-loader时，可能会遇到一个有趣的路径问题，例如，通过webpack打包的目录结构如下：
 
-  ```powershell
+  ```sh
   dist
       |—— img
           |—— a.png  # file-loader生成的文件，export default "img/a.png"，则

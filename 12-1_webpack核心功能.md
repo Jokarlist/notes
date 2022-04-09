@@ -57,7 +57,7 @@
 
   - 通过 `--mode` 选项可以控制webpack的打包的运行环境
 
-    ```powershell
+    ```sh
     # 生产环境下的打包
     webpack --mode=production
     # 开发环境下的打包
@@ -143,7 +143,7 @@
 ## 配置文件
 
 - 默认情况下，webpack会读取 `webpack.config.js` 文件作为配置文件，也可以通过CLI参数 `--config` 来指定使用某个配置文件
-- 配置文件中通过CommonJS模块导出一个对象，对象中的各种属性对应不同的webpack配置
+- 配置文件中通过CommonJS模块化导出一个对象，对象中的各种属性对应不同的webpack配置
 - 注意：配置文件中的代码，必须是能在node环境下运行的有效代码
 - 基本配置：
   - `mode`：编译模式。字符串，取值为development或production，指定编译结果代码运行的环境，会影响webpack对编译结果代码格式的处理
@@ -285,7 +285,7 @@
 
   - 源码结构：
 
-    ```powershell
+    ```sh
     |—— src
         |—— pageA	页面A的代码目录
             |—— index.js 页面A的启动模块
@@ -326,7 +326,7 @@
 
   - 源码结构：
 
-    ```powershell
+    ```sh
     |—— src
         |—— pageA	页面A的代码目录
             |—— index.js 页面A的启动模块
@@ -366,7 +366,7 @@
 
   - 源码结构：
 
-    ```powershell
+    ```sh
     |—— src
         |—— subFunc	子功能目录
             |—— ...
@@ -470,7 +470,7 @@
 
   ```js
   const plugin = {
-  	function apply(compiler) {}
+  	apply(compiler) {}
   };
   
   // 通常，习惯上会将该对象写成构造函数的模式
@@ -538,7 +538,7 @@
 
   - 在webpack调用函数时，会向其传入一个参数env，该参数的值来自于webpack命令中给env指定的值，例如：
 
-    ```powershell
+    ```sh
     npx webpack --env abc	# env: "abc"
     npx webpack --env.abc	# env: {abc: true}	webpack5不再支持这种写法
     npx webpack --env.abc=1	# env: {abc: 1}	webpack5不再支持这种写法
