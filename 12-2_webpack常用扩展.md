@@ -148,7 +148,7 @@
 
 ## file-loader url-loader 普通文件处理
 
-- file-loader：生成所依赖的文件到输出目录，文件名也即页面引入其使用的路径，由loader的配置产生，模块最终会将其导出
+- file-loader：生成所依赖的文件到输出目录，文件名也即页面引入该文件时所使用的路径，由loader的配置产生，模块最终会将其导出
 
   ```js
   // file-loader

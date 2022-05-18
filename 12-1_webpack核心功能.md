@@ -196,7 +196,7 @@
 
      3. 产生chunk assets：
 
-        - webpack会根据配置为chunk生成一个资源列表，即 `chunk assets` ，资源列表可以理解为是存储生成到最终文件的文件名和文件内容
+        - webpack会根据配置为chunk生成一个资源列表，即 `chunk assets` ，资源列表可以理解为是用于存储最终生成文件的文件名和文件内容的清单
 
           <img src="https://gitee.com/dev-edu/frontend-webpack-particular/raw/master/1.%20webpack%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/1-8.%20%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/assets/2020-01-09-12-39-16.png">
 
@@ -511,7 +511,7 @@
   }
   ```
 
-  - 事件名称：即要监听的事件名也即钩子名，查阅文档 https://www.webpackjs.com/api/compiler-hooks
+  - 事件名称：即要监听的事件名也即钩子名，[查阅文档](https://www.webpackjs.com/api/compiler-hooks)
   - 事件类型：这一部分使用的是Tapable API，这个小型的库是一个专门用于钩子函数监听的库。它提供了一些事件类型：
     - `tap`：注册一个同步的钩子函数，函数运行完毕则表示事件处理结束
     - `tapAsync`：注册一个基于回调的异步的钩子函数，函数通过调用一个回调表示事件处理结束，事件处理函数传参compilation和callback
