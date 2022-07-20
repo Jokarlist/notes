@@ -1,6 +1,9 @@
 ## 数据类型
 
-- JS中的原始值有：Number	String	Boolean	Undefined	Null
+- 基本数据类型：Number、String、Boolean、Undefined、Null、Symbol、BigInt
+- 派生（引用）数据类型：Object、Array、Function
+
+
 
 ## 包装类
 
@@ -29,10 +32,14 @@
 
      补充：null和undefined相等，它们自身和自身也相等
 
+
+
 ## 函数
 
 - 函数名装的是函数的地址，执行函数时要找到函数定义的位置执行
 - 函数执行上下文（AO）与函数执行位置无关，与定义位置有关
+
+
 
 ## 预编译
 
@@ -46,6 +53,8 @@
   3. 形参实参相统一
   4. 函数声明整体提升，函数名作为AO对象的属性，属性值为函数体
 
+
+
 ## 原型
 
 - 原型链是一种对象链
@@ -57,18 +66,20 @@
   										 //表明实例对象的__proto__属性指向的是构造其的构造函数的prototype（对象）
   ```
 
-- 每构造出一个函数（函数声明或匿名函数表达式）或者是内建的构造函数，其\_\_proto\_\_指向的是Function.prototype，表明任何函数都是由Function()构造
-
-- 即
+- 每构造出一个函数（函数声明或匿名函数表达式）或者是内建的构造函数，其\_\_proto\_\_指向的是Function.prototype，表明任何函数都是由Function()构造，即
 
   ```javascript
   var F = function () {};
   console.log(F.__proto__ === Function.prototype); //结果为true
   ```
 
+
+
 ## 定位
 
 absolute：相对于非static定位的父级元素定位，若无非static定位的父级元素，则相对于初始块容器定位。这个初始块容器有着和浏览器视口一样的尺寸，并且`<html>`元素也被包含在这个容器里面。简单来说，绝对定位元素会被放在`<html>`元素的外面，并且根据浏览器视口来定位
+
+
 
 ## this指向
 
@@ -77,6 +88,8 @@ absolute：相对于非static定位的父级元素定位，若无非static定位
 3. 通过new关键字调用函数时，this指向新创建的对象
 4. 通过apply、call、bind调用函数，this指向thisArg参数指定的数据
 5. DOM事件处理函数，this指向事件源
+
+
 
 ## 严格模式
 
@@ -89,6 +102,8 @@ absolute：相对于非static定位的父级元素定位，若无非static定位
    2. 变量赋值前必须声明
    3. 局部this必须被赋值（绑定指定对象），例如：局部（某函数体内部）下直接调用某函数时this不再指向window而是指向undefined
    4. 拒绝重复属性和参数
+
+
 
 ## 事件循环
 
@@ -114,6 +129,8 @@ absolute：相对于非static定位的父级元素定位，若无非static定位
   - `requestAnimationFrame的回调`，进入宏任务（macro task）
   - `事件处理函数`，进入宏任务（macro task）
 
+
+
 ## 属性描述符
 
 - 属性描述符（Property Descriptor）：是一个普通对象，用于描述一个属性的相关信息
@@ -129,6 +146,8 @@ absolute：相对于非static定位的父级元素定位，若无非static定位
 - `Object.defineProperties(对象，多个属性的描述符)`：在某对象上定义或修改多个属性，可同时配置每一个的属性描述符
 - 属性描述符中，若配置了get或set中的任一个，则该属性成为一个**存取器属性**。get和set配置均为函数，存取器属性在读取该属性时会运行相应的get方法并返回所得到的返回值，修改该属性时会运行相应的set方法
 - 存取器属性的意义在于可以控制属性的读取和修改
+
+
 
 ## JS时间线
 

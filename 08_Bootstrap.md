@@ -132,10 +132,10 @@
   - ```html
     <!--
     	1. 特大屏幕下一行显示6个div，一个div占2列
-    	1. 大屏幕下一行显示4个div，一个div占3列
-    	1. 中等屏幕下一行显示3个div，一个div占4列
-    	1. 小屏幕下一行显示2个div，一个div占6列
-    	1. 特小屏幕下一行显示1个div，一个div占12列
+    	2. 大屏幕下一行显示4个div，一个div占3列
+    	3. 中等屏幕下一行显示3个div，一个div占4列
+    	4. 小屏幕下一行显示2个div，一个div占6列
+    	5. 特小屏幕下一行显示1个div，一个div占12列
     -->
     <div class="row">
         <div class="col-xl-2 col-lg-3 col-md-4 col-md-6 col-12"></div>
