@@ -170,3 +170,81 @@ absolute：相对于非static定位的父级元素定位，若无非static定位
 9. 当所有async的脚本加载完成并执行后、img等加载完成后，document.readyState = 'complete'，window对象触发load事件
 
 10. 从此，异步响应方式处理用户输入、网络事件等
+
+
+
+
+## label标签
+
+```html
+<label for="demo">username</label>
+<input type="text" id="demo">
+```
+
+设置其上的for的属性值为某input的id属性值，可将二者相关联
+
+
+
+## 属性和特性
+
+- 属性包含特性，即特性是标签（DOM结构）原有的，属性可以是人为添加的
+- 非特性的属性与标签的行间样式无映射关系，特性则有
+
+```html
+<input type="text" value="default" id="demo" creator="xq">
+
+<script type="text/javascript">
+	var input = document.getElementById("demo");
+	input.creator;
+    input.data; // 读取值都为undefined，表明是从对input这个dom对象进行读取操作，与行间样式并无					映射
+    input.creator = "anyone"; // 给input这个dom对象的新增一个creator属性且值为"anyone"，								 但是不会映射到行间样式上修改creator="xq"
+</script>
+```
+
+若要对非特性的属性进行读写操作，则应使用getAttribute和setAttribute方法，可相对应改变行间样式
+
+- elem.style是一个类数组，对其中属性进行读写只可改变元素行间样式，读取不到页面级css以及外部引用css的值
+
+
+
+## 图片预加载和懒加载
+
+1. 监控滚轮事件
+2. 不断判定当前div的位置
+3. 当到达临界点时采取预加载
+4. 预加载完成后将图片正式地添加到页面中
+
+前三步可看作实现懒加载的各分解步骤
+
+
+
+## 文档碎片-虚拟DOM
+
+- 用文档碎片来操作dom并不提高效率，例如直接往一个ul中添加10个li，和先将10个li添加到一个文档碎片后再添加到ul中的效率实际上差不多
+- 后期学习框架时（vue和react）会学习到虚拟dom来作为提高效率的常用方法
+
+
+
+## 数组方法
+
+1. **forEach**：对数组的每个元素执行一次给定的函数
+
+2. **filter**：创建一个新数组，其包含通过所提供函数实现的测试的所有元素
+
+3. **map**：创建一个新数组，其包含的每个元素是调用一次提供的函数后的返回值
+
+4. **every**：测试一个数组内的所有元素是否都能通过某个指定函数的测试，它返回一个布尔值
+
+5. **some**：测试数组中是不是至少有1个元素通过了被提供的函数测试，它返回一个布尔值
+
+   上述方法的语法形式形如：**arr.filter(callback, thisArg)**		**callback(elem, index, self)**
+
+   callback为自定义回调函数（用来测试数组的每个元素的函数)，其参数elem为数组正在处理的元素，index正在处理的元素在数组中的索引值，self为调用该方法的数组本身，thisArg为callback执行时this指向的值，省略则this指向window
+
+6. **reduce**：对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值
+
+7. **reduceRight**：和reduce类似，差别在于对数组元素的遍历顺序与之相反(降序执行)
+
+   二者的语法形式形如：**arr.reduce(callback, initialValue)**		**callback(accumulator, currentValue, index, self)**
+
+   accumulator累计器累计回调的返回值; 它是上一次调用回调函数时返回的累积值，初始时为initialValue(若有)；currentValue, index, self与上述类似；initialValue作为第一次调用回调函数时的第一个参数的值。 如果没有提供初始值，则将使用数组中的第一个元素。
