@@ -1,31 +1,31 @@
-### 全局对象
+## 全局对象
 
-#### *setTimeout*
+### *setTimeout*
 
-#### *setInterval*
+### *setInterval*
 
-#### *setImmediate*
+### *setImmediate*
 
 - 类似于 setTimeout 0
 
-#### *console*
+### *console*
 
-#### *__dirname*
+### *__dirname*
 
 - 获取当前模块所在目录路径
 - 并非 global 属性
 
-#### *__filename*
+### *__filename*
 
 - 获取当前模块的文件路径
 - 并非 global 属性
 
-#### *Buffer*
+### *Buffer*
 
 - 类型化数组
 - 继承自 Uint8Array
 
-#### *process*
+### *process*
 
 - `cwd()`：
   - 返回当前 nodejs 进程的工作目录
@@ -45,9 +45,9 @@
 
 
 
-### Node 的模块化细节
+## Node 的模块化细节
 
-#### 模块的查找
+### 模块的查找
 
 1. 绝对路径：
    - 根据绝对路径直接加载模块
@@ -66,21 +66,21 @@
    - 若仅提供目录，不提供文件名，则自动寻找该目录下的 index.js 文件
    - 可通过修改 package.json 中的 main 字段来指定上面所寻找的文件，也即包的入口文件
 
-#### module 对象
+### module 对象
 
 记录当前模块的信息
 
-#### require 函数
+### require 函数
 
 导入模块
 
-#### 注意
+### 注意
 
 *当执行一个模块或使用 require 导入一个模块时，会将模块放置在一个函数环境中执行*
 
 
 
-### Node 中的 ES 模块化
+## Node 中的 ES 模块化
 
 - 目前，Node 中的 ES 模块化仍然处于试验阶段
 - 模块要么采用 commonjs 的形式，要么采用 ES 的形式，混用会报错
@@ -88,9 +88,9 @@
 
 
 
-### 基本内置模块
+## 基本内置模块
 
-#### *os*
+### *os*
 
 - `EOL`
 - `arch()`
@@ -100,7 +100,7 @@
 - `hostname()`
 - `tmpdir()`（常用）：返回操作系统默认的缓存文件夹的路
 
-#### *path*
+### *path*
 
 - `basename(path[,ext])`（常用）：返回所给路径的最后一部分，类似于 Unix 的 basename 指令
 - `sep`：返回操作系统特定的路径片段分隔符。Windows 上是 `\`，POSIX 上是 `/`
@@ -112,11 +112,11 @@
 - `relative(from, to)`
 - `resolve([...paths])`（常用）：将一系列的路径或路径片段解析成一个绝对路径
 
-#### *url*
+### *url*
 
 - `URL(input[,base])`：全局构造函数。可将一个 URL 字符串解析成一个 URL 对象
 
-#### *util*
+### *util*
 
 - `callbackify()`
 - `inherits()`
@@ -125,9 +125,9 @@
 
 
 
-### 文件 I/O
+## 文件 I/O
 
-#### *fs*
+### *fs*
 
 - `readFile()`：读取一个文件
 - `wrireFile()`：向文件写入内容。文件路径不存在时为新建文件；路径中包含不存在的目录时会报错
@@ -143,26 +143,26 @@
 - `mkdir()`：创建目录
 - `unlink()`：删除一个文件
 
-#### *fs.promises*
+### *fs.promises*
 
 
 
-### 文件流
+## 文件流
 
-#### Node 基础流类型
+Node 基础流类型：
 
 - 可读流 Readable：数据从源头流向内存
 - 可写流 Writeable：数据从内存流向源头
 - 双工流 Duplex：数据既可从源头流向内存又可从内存流向源头
 
-#### 为什么需要流
+为什么需要流？
 
 - 其它介质和内存的数据规模不一致
 - 其它介质和内存的数据处理能力不一致
 
-#### 文件流的创建
+### 文件流的创建
 
-##### *fs.createReadStream(path[,options])*
+#### *fs.createReadStream(path[,options])*
 
 用途：创建一个**文件可读流**，用于读取文件内容
 
@@ -201,7 +201,7 @@
   - `rs.pause()`：暂停读取，会触发 pause 事件
   - `rs.resume()`：恢复读取，会触发 resume 事件
 
-##### *fs.createWriteStream(path[,options])*
+#### *fs.createWriteStream(path[,options])*
 
 用途：创建一个**文件写入流**，用于写入文件内容
 
@@ -234,7 +234,7 @@
     - 结束写入，将自动关闭文件。是否自动关闭取决于 autoClose 配置，其默认为 true
     - data可选，表示关闭前的最后一次写入数据
 
-##### *rs.pipe(ws)*
+#### *rs.pipe(ws)*
 
 - 将可读流连接到可写流
 - 返回参数的值
@@ -242,23 +242,23 @@
 
 
 
-### net 模块
+## net 模块
 
-#### 简介
+### 简介
 
 net 模块是一个通信模块，提供了一些异步网络接口，用于创建基于流的*网络通信 TCP* 和*进程间通信 IPC* 的服务器与客户端
 
-#### 创建客户端
+### 创建客户端
 
-##### *net.createConnection(options[,connectListener])*
+#### *net.createConnection(options[,connectListener])*
 
 返回值：`socket`
 - socket 是一个特殊的文件，在 node 中表现为一个双工流对象
 - 通过向流写入内容发送数据，通过监听流的内容获取数据
 
-#### 创建服务器
+### 创建服务器
 
-##### *net.createServer(\[options\][,connectListener])*
+#### *net.createServer(\[options\][,connectListener])*
 
 返回值：`server 对象`
 - `server.listen(port)`：监听当前计算机中某个端口
@@ -267,23 +267,23 @@ net 模块是一个通信模块，提供了一些异步网络接口，用于创�
 
 
 
-### http 模块
+## http 模块
 
-#### 简介
+### 简介
 
 http 模块建立在 net 模块之上，使得开发者无须手动管理 socket，无须手动组装消息格式
 
-#### 客户端
+### 客户端
 
-##### *http.request(url\[,options\][,callback])*
+#### *http.request(url\[,options\][,callback])*
 
 - 返回值：`http.ClientRequest`
 - 发出请求：`ClientRequest` 对象
 - 接收响应：`IncomingMessage` 对象（可读流）
 
-#### 服务器
+### 服务器
 
-##### *http.createServer(\[options\][,requestListener])*
+#### *http.createServer(\[options\][,requestListener])*
 
 - 返回值：`http.Server`
 - 接收请求（来自客户端）：`IncomingMessage` 对象（可读流）
@@ -291,9 +291,9 @@ http 模块建立在 net 模块之上，使得开发者无须手动管理 socket
 
 
 
-### https 模块
+## https 模块
 
-#### 本地产生证书（将自身作为权威机构发布证书）
+### 本地产生证书（将自身作为权威机构发布证书）
 
 1. 安装 OpenSSL
 
@@ -343,9 +343,9 @@ http 模块建立在 net 模块之上，使得开发者无须手动管理 socket
 
 
 
-#### 本地创建 https 连接
+### 本地创建 https 连接
 
-##### *https.createServer(\[options\][, requestListener])*
+#### *https.createServer(\[options\][, requestListener])*
 
 ```js
 const server = https.createServer(
@@ -359,19 +359,19 @@ const server = https.createServer(
 
 
 
-### node 生命周期
+## node 生命周期
 
-#### 事件循环
+### 事件循环
 
-##### *timers*
+#### *timers*
 
 - 存放计时器的回调函数队列
 
-##### *pending callback*
+#### *pending callback*
 
-##### *idle prepare*
+#### *idle prepare*
 
-##### *poll*
+#### *poll*
 
 - 轮询队列
 - 除了 timers、check 中的回调外，绝大部分异步操作的回调都会放入该队列。例如：文件读取、监听用户请求等
@@ -379,20 +379,20 @@ const server = https.createServer(
   - 若 poll 中有回调。依次执行回调直至清空队列
   - 若 poll 中无回调。等待其他队列中出现回调时，结束该阶段并进入下一阶段；若其他队列也没有回调，则持续等待，直至出现回调为止
 
-##### *check*
+#### *check*
 
 - 检查阶段
 - 使用 setImmediate 的回调直接进入此队列
 
-##### *close callback*
+#### *close callback*
 
-##### *nextTick 和 Promise 队列*
+#### *nextTick 和 Promise 队列*
 
-- *事件循环中，每需要往前推进一步（即执行一个回调）之前，必须先清空 nextTick 和 promise 队列，且 nextTick 优先级高于 promise*
+- 事件循环中，每需要往前推进一步（即执行一个回调）之前，必须先清空 nextTick 和 promise 队列，且 nextTick 优先级高于 promise
 
 
 
-### EventEmitter
+## EventEmitter
 
 - node 事件管理的通用机制
 - 内部维护多个事件队列

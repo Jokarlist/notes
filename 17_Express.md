@@ -1,4 +1,4 @@
-### Express 的基本使用
+## Express 的基本使用
 
 ```js
 const http = require("http");
@@ -45,9 +45,9 @@ app.listen(port, () => {});
 
 
 
-### Express 中间件
+## Express 中间件
 
-#### 概念
+### 概念
 
 当匹配到了请求后，交给第一个处理函数（中间件）处理，若需后续中间件处理，则需要手动的交付
 
@@ -61,23 +61,23 @@ app.post("/news", (req, res, next) => {
 
 
 
-#### 中间件处理的细节
+### 中间件处理的细节
 
 - 若后续已没有中间件，且express 发现响应还未结束（即未调用 *res.end()*），则 express 会响应 *404 状态*
 - 若中间件处理过程发生了错误（如抛出错误），不会停止服务器，相当于调用 *next(错误对象)*，则其会寻找后续的错误处理中间件，若无则响应 *500 状态*
 
 
 
-### 常用内置中间件
+## 常用内置中间件
 
-#### *express.static()*
+### *express.static()*
 
 发放静态资源，服务基于 [serve-static](https://www.npmjs.com/package/serve-static)
 
-#### *express.urlencoded()*
+### *express.urlencoded()*
 
 对请求的 urlencoded 类型的载荷做解析处理，服务基于 [body-parser](https://www.npmjs.com/package/body-parser)
 
-#### *express.json()*
+### *express.json()*
 
 对请求的 json类型的载荷做解析处理，服务基于 [body-parser](https://www.npmjs.com/package/body-parser)
