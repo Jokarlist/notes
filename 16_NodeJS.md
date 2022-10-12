@@ -98,7 +98,7 @@
 - `freemem()`
 - `homedir()`
 - `hostname()`
-- `tmpdir()`（常用）：返回操作系统默认的缓存文件夹的路
+- `tmpdir()`（常用）：返回操作系统默认的缓存文件夹的路径
 
 ### *path*
 
@@ -121,7 +121,7 @@
 - `callbackify()`
 - `inherits()`
 - `isDeepStrictEqual(val1, val2)`（常用）：深比较两个值
-- `promisfy()`（常用）：将一个回调风格的函数转换为异步 Promise 风格的函数
+- `promisify()`（常用）：将一个回调风格的函数转换为异步 Promise 风格的函数
 
 
 

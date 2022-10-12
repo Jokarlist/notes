@@ -195,15 +195,16 @@
 
      2. 构建所有依赖模块：
 
-        <img src="https://gitee.com/dev-edu/frontend-webpack-particular/raw/master/1.%20webpack%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/1-8.%20%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/assets/2020-01-09-12-32-38.png">
 
-        - 过程简图：
+     <img src="https://gitee.com/dev-edu/frontend-webpack-particular/raw/master/1.%20webpack%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/1-8.%20%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/assets/2020-01-09-12-32-38.png">
 
-        <img src="https://gitee.com/dev-edu/frontend-webpack-particular/raw/master/1.%20webpack%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/1-8.%20%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/assets/2020-01-09-12-35-05.png" style="zoom: 65%">
+     - 过程简图：
 
-        - 该步骤完成之后，chunk会产生一个模块列表，列表中包括了模块id和模块转换后的代码
+     <img src="https://gitee.com/dev-edu/frontend-webpack-particular/raw/master/1.%20webpack%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/1-8.%20%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/assets/2020-01-09-12-35-05.png" style="zoom: 65%">
 
-     3. 产生chunk assets：
+     - 该步骤完成之后，chunk会产生一个模块列表，列表中包括了模块id和模块转换后的代码
+
+     - 产生chunk assets：
 
         - webpack会根据配置为chunk生成一个资源列表，即 `chunk assets` ，资源列表可以理解为是用于存储最终生成文件的文件名和文件内容的清单
 
@@ -215,7 +216,7 @@
 
           <img src="https://gitee.com/dev-edu/frontend-webpack-particular/raw/master/1.%20webpack%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/1-8.%20%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/assets/2020-01-09-12-43-52.png">
 
-     4. 合并chunk assets：
+     - 合并chunk assets：
 
         - 将多个chunk的assets合并到一起，并产生一个总的hash：
 
