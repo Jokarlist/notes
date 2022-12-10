@@ -80,4 +80,4 @@ app.post("/news", (req, res, next) => {
 
 ### *express.json()*
 
-对请求的 json类型的载荷做解析处理，服务基于 [body-parser](https://www.npmjs.com/package/body-parser)
+对请求的 json 类型的载荷做解析处理，服务基于 [body-parser](https://www.npmjs.com/package/body-parser)
