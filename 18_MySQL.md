@@ -160,11 +160,117 @@
 
 #### 增 CREATE
 
+```sql
+-- 语法
+CREATE TABLE table_name (
+    column1 datatype constraints,
+    column2 datatype constraints,
+    ...
+);
+
+-- 范例
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    position VARCHAR(50),
+    salary DECIMAL(10, 2)
+);
+```
+
+
+
 #### 查 Retrieve
+
+```sql
+-- 语法
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+-- 范例
+SELECT name, position
+FROM employees;
+WHERE salary > 50000;
+```
+
+
 
 #### 改 UPDATE
 
+```sql
+-- 语法
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+-- 范例
+UPDATE employees
+SET position = 'Manager'
+WHERE id = 1;
+```
+
+
+
 #### 删 DELETE
+
+```sql
+-- 语法
+DELETE FROM table_name
+WHERE condition;
+
+-- 范例
+DELETE FROM employees
+WHERE id = 1;
+```
+
+ 
+
+#### 修改表结构 ALTER
+
+```sql
+-- 基本语法
+ALTER TABLE table_name
+-- 新增列
+ADD column_name datatype constraints;
+-- 删除列
+DROP COLUMN column_name;
+-- 修改列
+MODIFY COLUMN column_name new_datatype constraints;
+
+-- 范例
+ALTER TABLE employees
+ADD birthdate DATE;
+
+ALTER TABLE employees
+DROP COLUMN birthdate;
+
+ALTER TABLE employees
+MODIFY COLUMN salary FLOAT;
+```
+
+
+
+#### 删除表 DROP
+
+```sql
+-- 语法
+DROP TABLE table_name;
+
+-- 范例
+DROP TABLE employees;
+```
+
+
+
+#### 清空表 TRUNCATE
+
+```sql
+-- 语法
+TRUNCATE TABLE table_name;
+
+-- 范例
+TRUNCATE TABLE employees;
+```
 
 
 
@@ -209,3 +315,343 @@
 
 
 
+## 联表查询
+
+### 笛卡尔积
+
+```sql
+-- 查询 team 表中足球队的对阵表
+SELECT
+	t1.NAME 主场,
+	t2.NAME 客场 
+FROM
+	team AS t1,
+	team AS t2 
+WHERE
+	t1.id != t2.id;
+```
+
+
+
+### 左连接（左外连接）LEFT JOIN
+
+### 右连接（右外连接）RIGHT JOIN
+
+### 内连接 INNER JOIN
+
+```sql
+-- 显示出所有员工的姓名、性别（使用男或女显示）、入职时间、薪水、所属部门（显示部门名称）、所属公司（显示公司名称）
+SELECT
+	e.`name` 员工姓名,
+CASE
+		ismale 
+		WHEN 1 THEN
+		'男' ELSE '女' 
+	END 性别,
+	e.joinDate 入职时间,
+	e.salary 薪水,
+	d.`name` 部门名称,
+	c.`name` 公司名称 
+FROM
+	employee e
+	INNER JOIN department d ON e.deptId = d.id
+	INNER JOIN company c ON d.companyId = c.id
+
+-- 查询腾讯和蚂蚁金服的所有员工姓名、性别、入职时间、部门名、公司名
+...
+WHERE
+	c.`name` IN (
+	'腾讯科技',
+	'蚂蚁金服')
+
+-- 查询腾讯教学部的所有员工姓名、性别、入职时间、部门名、公司名
+...
+WHERE
+	c.`name` LIKE '%渡一%' 
+	AND d.`name` = '教学部';
+
+-- 列出所有公司员工居住的地址（需去重）
+SELECT DISTINCT
+	location 
+FROM
+	employee;
+```
+
+
+
+## 函数和分组
+
+### 函数
+
+#### 内置函数
+
+##### 数学
+
+- ABS(x)：绝对值
+- CEILING(x)：向上取整 alias -> CEIL
+- FLOOR(x)：向下取整
+- MOD(x,y)：x / y 的模
+- PI()：PI 值
+- RAND()：０到１内的随机值
+- ROUND(x,y)：x 四舍五入到保留 y 位小数的值
+- TRUNCATE(x,y)：x 截短到 y 位小数
+
+##### 聚合
+
+- AVG(col)：返回指定列的平均值
+
+- COUNT(col)：返回指定列中非 NULL 值的个数
+
+- MIN(col)：返回指定列的最小值
+
+- MAX(col)：返回指定列的最大值
+
+- SUM(col)：返回指定列的所有值之和
+
+  ```sql
+  SELECT
+  	COUNT( id ) AS 员工数量,
+  	AVG( salary ) AS 平均薪资,
+  	SUM( salary ) AS 总薪资,
+  	MIN( salary ) AS 最小薪资 
+  FROM
+  	employee;
+  ```
+
+  
+
+##### 字符
+
+- CONCAT(s1,s2...,sn)：将 s1,s2...,sn 连接成字符串
+- CONCAT_WS(sep,s1,s2...,sn)：将 s1,s2...,sn 连接成字符串，并用 sep 字符间隔
+- TRIM(str)：去除字符串 str 首尾空格
+- LTRIM(str)：去除字符串 str 头部空格
+- RTRIM(str)：去除字符串 str 尾部空格
+
+##### 日期
+
+- CURTIME() / CURRENT_TIME()：当前的时间
+- TIMESTAMPDIFF(part,  date1,date2)：返回 date1 到 date2 之间相隔的 part 值，part 是时间单位，取值如下
+  - MICROSECOND
+  - SECOND
+  - MINUTE
+  - HOUR
+  - DAY
+  - WEEK
+  - MONTH
+  - QUARTER
+  - YEAR
+
+#### 自定义函数
+
+### 分组
+
+1. from
+2. join ... on ...
+3. where
+4. group by
+5. select
+6. having
+7. order by
+8. limit
+
+分组后，只能查询分组的列和聚合列
+
+```sql
+-- 查询员工分布的居住地，以及每个居住地有多少名员工
+SELECT
+	location,
+	count( id ) AS empnumber 
+FROM
+	employee 
+GROUP BY
+	location 
+HAVING
+	empnumber >= 40
+	
+-- 查询所有薪水在10000以上的员工的分布的居住地，然后仅得到聚集地大于30的结果
+SELECT
+	location,
+	count( id ) AS empnumber 
+FROM
+	employee 
+WHERE
+	salary >= 10000 
+GROUP BY
+	location 
+HAVING
+	count( id )>= 30
+```
+
+
+
+## 练习
+
+```sql
+-- 查询腾讯每个部门的员工数量
+SELECT
+	d.`name`,
+	COUNT( e.id ) AS number 
+FROM
+	company AS c
+	INNER JOIN department AS d ON c.id = d.companyId
+	INNER JOIN employee AS e ON d.id = e.deptId 
+WHERE
+	c.`name` LIKE '%腾讯%' 
+GROUP BY
+	d.id,
+	d.`name`;
+	
+-- 查询每个公司的员工数量
+SELECT
+	c.`name`,
+	COUNT( e.id ) AS number 
+FROM
+	company AS c
+	INNER JOIN department AS d ON c.id = d.companyId
+	INNER JOIN employee AS e ON d.id = e.deptId 
+GROUP BY
+	c.id,
+	c.`name`
+
+-- 查询所有公司5年内入职的居住在万家湾的女员工数量
+SELECT
+	c.`name`,
+CASE
+		
+		WHEN r.number IS NULL THEN
+		0 ELSE r.number 
+	END AS number 
+FROM
+	company c
+	LEFT JOIN (
+	SELECT
+		c.id,
+		c.`name`,
+		COUNT( e.id ) AS number 
+	FROM
+		company AS c
+		INNER JOIN department AS d ON c.id = d.companyId
+		INNER JOIN employee AS e ON d.id = e.deptId 
+	WHERE
+		TIMESTAMPDIFF(
+			YEAR,
+			e.joinDate,
+		CURDATE())<= 5 
+		AND e.location LIKE '%万家湾%' 
+	GROUP BY
+		c.id,
+	c.`name` 
+	) AS r ON c.id = r.id
+
+-- 查询腾讯所有员工分布在哪些居住地，每个居住地的数量
+SELECT
+	e.location,
+	count( e.id ) AS empnumber 
+FROM
+	company AS c
+	INNER JOIN department AS d ON c.id = d.companyId
+	INNER JOIN employee AS e ON d.id = e.deptId 
+WHERE
+	c.`name` LIKE '%腾讯%' 
+GROUP BY
+	e.location
+
+-- 查询员工人数大于200的公司信息
+SELECT
+	* 
+FROM
+	company 
+WHERE
+	id IN (
+	SELECT
+		c.id 
+	FROM
+		company AS c
+		INNER JOIN department AS d ON c.id = d.companyId
+		INNER JOIN employee AS e ON d.id = e.deptId 
+	GROUP BY
+		c.id,
+		c.`name` 
+	HAVING
+	count( e.id )>= 200 
+	)
+
+-- 查询腾讯公司里比其平均工资高的员工
+SELECT
+	e.* 
+FROM
+	company AS c
+	INNER JOIN department AS d ON c.id = d.companyId
+	INNER JOIN employee AS e ON d.id = e.deptId 
+WHERE
+	c.`name` LIKE '%腾讯%' 
+	AND e.salary >(-- 查询平均薪资
+	SELECT
+		avg( e.salary ) 
+	FROM
+		company AS c
+		INNER JOIN department AS d ON c.id = d.companyId
+		INNER JOIN employee AS e ON d.id = e.deptId 
+	WHERE
+	c.`name` LIKE '%腾讯%' 
+	)
+
+-- 查询腾讯所有名字为两个字和三个字的员工对应人数
+SELECT
+	CHAR_LENGTH( e.`name` ) AS 姓名长度,
+	COUNT( E.ID ) AS 员工数量 
+FROM
+	company AS c
+	INNER JOIN department AS d ON c.id = d.companyId
+	INNER JOIN employee AS e ON d.id = e.deptId 
+WHERE
+	c.`name` LIKE '%腾讯%' 
+GROUP BY
+	CHAR_LENGTH( e.`name` ) 
+HAVING
+	姓名长度 IN (
+	2,
+	3)
+
+-- 查询每个公司每个月的总支出薪水，并按照从低到高排序
+SELECT
+	c.`name`,
+	SUM( e.salary ) AS sumofsalary 
+FROM
+	company AS c
+	INNER JOIN department AS d ON c.id = d.companyId
+	INNER JOIN employee AS e ON d.id = e.deptId 
+GROUP BY
+	c.id,
+	c.`name` 
+ORDER BY
+	sumofsalary
+```
+
+
+
+## 视图
+
+MySQL 的视图（View）是一种虚拟表，其内容是根据 SQL 查询结果生成的。视图并不存储数据本身，而是存储用于生成数据的查询语句。当查询视图时，MySQL 会根据视图定义的查询语句动态生成数据。
+
+视图的主要用途包括：
+
+1. **简化复杂查询**：视图可以将复杂的查询封装起来，用户只需查询视图即可获得结果，而无需重复编写复杂的SQL语句。
+
+2. **数据安全性**：视图可以隐藏表中的某些列或行，从而控制用户对敏感数据的访问。
+
+3. **数据一致性**：视图可以确保不同用户看到的数据是一致的，即使底层数据发生了变化。
+
+4. **抽象层次**：视图可以为底层数据提供一个抽象层，使得应用程序与数据库的结构解耦。
+
+   ```sql
+   -- 新增
+   CREATE VIEW view_name AS
+   SELECT column1, column2, ...
+   FROM table_name
+   WHERE condition;
+   
+   -- 删除
+   DROP VIEW view_name;
+   ```
